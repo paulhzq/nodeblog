@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb');
 var db = require('monk')('localhost/nodeblog');
+var multer = require('multer');
+var upload = multer({ dest: './public/images/uploads'});
 
 router.get('/add', function(req,res,next){
   var categories = db.get('Categories');
@@ -21,9 +23,10 @@ router.post('/add', function(req,res,next){
   var body = req.body.body;
   var author = req.body.author;
   var date = new Date();
-  if(req.files.mainimage){
+  console.log(req.files);
+  if(req.files) {
     var mainImageOriginName = req.files.mainimage.originname;
-    var mainImageName = req.files.mainimage,name;
+    var mainImageName = req.files.mainimage.name;
     var mainImageMime = req.files.mainimage.mimetype;
     var mainImagePath = req.files.mainimage.path;
     var mainImageExt = req.files.mainimage.extension;
@@ -37,7 +40,7 @@ router.post('/add', function(req,res,next){
   req.checkBody('body','Body field is required');
 
   //Check Errors.
-  var errors = req.validattionErrors();
+  var errors = req.validationErrors();
   if(errors){
     res.render('addpost',{
       'errors':errors,
@@ -50,10 +53,10 @@ router.post('/add', function(req,res,next){
       posts.insert({
         'title':title,
         'body':body,
-        'category':category,
+        'Category':category,
         'date':date,
         'author':author,
-        'mainimage':mainimage
+        'mainimage':mainImageName
       },function(err, post){
         if(err){
           res.send('There was an issue submitting the post');

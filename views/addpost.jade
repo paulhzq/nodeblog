@@ -13,7 +13,7 @@ block content
     .form-group
       label Category
       select.form-control(name='category')
-        each category, i in categories
+        each category , i in categories
           option(value='#{category.title}') #{category.title}
     .form-group
       label Body
@@ -27,3 +27,6 @@ block content
         option(value='Brad') Brad
         option(value='John') John
     input.btn.btn-default(name='submit', type='submit', value='Save')
+    script(src='https://cdn.ckeditor.com/4.5.6/standard/ckeditor.js')
+    script
+      |  CKEDITOR.replace('body');
