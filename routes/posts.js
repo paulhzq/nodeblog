@@ -25,7 +25,7 @@ router.post('/add', upload.single('mainimage'), function(req, res, next){
   console.log(req.file);
   if(req.file) {
     var mainImageOriginalName = req.file.originalname;
-    var mainImageName = req.file.originalname;
+    var mainImageName = req.file.filename;
     var mainImageMime = req.file.mimetype;
     var mainImagePath = req.file.path;
     var mainImageExt = req.file.extension;
