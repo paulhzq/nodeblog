@@ -47,6 +47,7 @@ nav{
   height:40px;
   padding:20px 0 0 10px;
   font-size:18px;
+  margin-bottom: 20px;
 }
 
 nav li{
@@ -83,6 +84,10 @@ a.more{
 .post{
   border-bottom:1px solid #ccc;
   padding-bottom:20px;
+}
+
+.post img {
+  width:100px;
 }
 
 input,select,textarea{
@@ -133,4 +138,11 @@ ul.success li{
   background-color: :#dff0d8;
   border-color: #d6e9c6;
   list-style: none;
+}
+
+footer{
+  margin-top: 40px;
+  text-align: center;
+  height:30px;
+  border-top:1px olid #ccc;
 }

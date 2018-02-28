@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb');
 var db = require('monk')('localhost/nodeblog');
+var multer = require('multer');
+var upload = multer( { dest: './public/images/uploads'} );
 
-
-router.get('/add', function(req,res,next){
+router.get('/add', function(req, res, next){
   var categories = db.get('categories');
   categories.find({},{}, function(err,categories){
     res.render('addpost',{
@@ -14,20 +15,21 @@ router.get('/add', function(req,res,next){
   });
 });
 
-router.post('/add', function(req,res,next){
+router.post('/add', upload.single('mainimage'), function(req, res, next){
   //Get Form Values
   var title = req.body.title;
   var category = req.body.category;
   var body = req.body.body;
   var author = req.body.author;
   var date = new Date();
-  if(req.files.mainimage) {
-    var mainImageOriginName = req.files.mainimage.originname;
-    var mainImageName = req.files.mainimage.name;
-    var mainImageMime = req.files.mainimage.mimetype;
-    var mainImagePath = req.files.mainimage.path;
-    var mainImageExt = req.files.mainimage.extension;
-    var mainImageSize = req.files.mainimage.size;
+  console.log(req.file);
+  if(req.file) {
+    var mainImageOriginalName = req.file.originalname;
+    var mainImageName = req.file.originalname;
+    var mainImageMime = req.file.mimetype;
+    var mainImagePath = req.file.path;
+    var mainImageExt = req.file.extension;
+    var mainImageSize = req.file.size;
   } else {
       var mainImageName = 'noimage.png';
   }

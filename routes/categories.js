@@ -13,8 +13,8 @@ router.post('/add', function(req, res, next){
   //Get Form Values
   var title = req.body.title;
 
-  // form valid(ation
-  req.checkBody('title','Title field is required').notEmpty();
+  // form validation
+  // req.checkBody('title','Title field is required').notEmpty();
 
   //Check Errors.
   var errors = req.validationErrors();
